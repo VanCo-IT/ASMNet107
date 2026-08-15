@@ -1,0 +1,147 @@
+﻿@model IEnumerable<WebCafePoly.Models.SanPham>
+
+<div class="product-table-card">
+
+    <div class="table-responsive">
+
+        <table class="table product-table">
+
+            <thead>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Đơn giá</th>
+                    <th>Loại</th>
+                    <th>Hình ảnh</th>
+                    <th>Trạng thái</th>
+                    <th class="text-end">Thao tác</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <!-- PRODUCT -->
+                        <td>
+                            <div class="product-name-cell">
+
+                                <div class="product-mini-image">
+
+                                    @if (!string.IsNullOrEmpty(item.HinhAnh))
+                                    {
+                                        <img src="~/images/products/@item.HinhAnh"
+                                             alt="@item.TenSanPham" />
+                                    }
+                                    else
+                                    {
+                                        <span>☕</span>
+                                    }
+
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        @item.TenSanPham
+                                    </strong>
+
+                                    <small>
+                                        @item.MaSanPham
+                                    </small>
+                                </div>
+
+                            </div>
+                        </td>
+
+
+                        <!-- PRICE -->
+                        <td>
+                            <span class="product-price">
+                                @item.DonGia.ToString("N0") đ
+                            </span>
+                        </td>
+
+
+                        <!-- CATEGORY -->
+                        <td>
+                            <span class="category-badge">
+                                @item.MaLoaiNavigation?.TenLoai
+                            </span>
+                        </td>
+
+
+                        <!-- IMAGE -->
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.HinhAnh))
+                            {
+                                <img src="~/images/products/@item.HinhAnh"
+                                     alt="@item.TenSanPham"
+                                     class="product-table-image" />
+                            }
+                            else
+                            {
+                                <span class="no-image">
+                                    Không có ảnh
+                                </span>
+                            }
+                        </td>
+
+
+                        <!-- STATUS -->
+                        <td>
+                            @if (item.TrangThai)
+                            {
+                                <span class="status-badge status-active">
+                                    <span></span>
+                                    Đang bán
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="status-badge status-inactive">
+                                    <span></span>
+                                    Ngừng bán
+                                </span>
+                            }
+                        </td>
+
+
+                        <!-- ACTIONS -->
+                        <td>
+                            <div class="product-actions">
+
+                                <a asp-action="Details"
+                                   asp-route-masanpham="@item.MaSanPham"
+                                   class="action-btn action-view"
+                                   title="Xem chi tiết">
+                                    Xem
+                                </a>
+
+                                <a asp-action="Edit"
+                                   asp-route-masanpham="@item.MaSanPham"
+                                   class="action-btn action-edit"
+                                   title="Chỉnh sửa">
+                                    Sửa
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-masanpham="@item.MaSanPham"
+                                   class="action-btn action-delete"
+                                   title="Xóa sản phẩm">
+                                    Xóa
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

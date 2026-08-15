@@ -1,0 +1,50 @@
+﻿@model WebCafePoly.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+<h2>Đăng ký tài khoản</h2>
+
+<form asp-action="DangKy" method="post">
+
+    <div class="mb-3">
+        <label asp-for="HoTen"></label>
+        <input asp-for="HoTen" class="form-control" />
+        <span asp-validation-for="HoTen" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SoDienThoai"></label>
+        <input asp-for="SoDienThoai" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MatKhau"></label>
+        <input asp-for="MatKhau"
+               type="password"
+               class="form-control" />
+        <span asp-validation-for="MatKhau" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DiaChi"></label>
+        <input asp-for="DiaChi" class="form-control" />
+    </div>
+
+    <button class="btn btn-success">
+        Đăng ký
+    </button>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

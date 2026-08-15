@@ -1,0 +1,109 @@
+﻿@model List<WebCafePoly.Models.GioHang>
+
+@{
+    Layout = "_CustomerLayout";
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<section class="cart-page">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h1 class="menu-title">Giỏ hàng</h1>
+            <p class="menu-subtitle">Kiểm tra món trước khi thanh toán</p>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-cart">
+                <i class="bi bi-cart-x"></i>
+                <h3>Giỏ hàng đang trống</h3>
+                <p>Hãy chọn món bạn muốn thưởng thức.</p>
+
+                <a asp-controller="Guest"
+                   asp-action="Index"
+                   class="btn btn-order">
+                    Xem thực đơn
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="cart-box">
+
+                <div class="table-responsive">
+                    <table class="table cart-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Tên món</th>
+                                <th>Đơn giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@item.TenSanPham</strong>
+                                    </td>
+
+                                    <td>
+                                        @item.DonGia.ToString("N0") VNĐ
+                                    </td>
+
+                                    <td>
+                                        <div class="quantity-control">
+
+                                            <a asp-action="GiamSoLuong"
+                                               asp-route-id="@item.MaSanPham"
+                                               class="quantity-btn minus">
+                                                -
+                                            </a>
+
+                                            <span>@item.SoLuong</span>
+
+                                            <a asp-action="TangSoLuong"
+                                               asp-route-id="@item.MaSanPham"
+                                               class="quantity-btn plus">
+                                                +
+                                            </a>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <strong class="cart-price">
+                                            @item.ThanhTien.ToString("N0") VNĐ
+                                        </strong>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="cart-footer">
+
+                    <div>
+                        <span>Tổng tiền</span>
+                        <strong>
+                            @Model.Sum(x => x.ThanhTien).ToString("N0") VNĐ
+                        </strong>
+                    </div>
+
+                    <a asp-action="ThanhToan"
+                       class="btn btn-order checkout-btn">
+                        <i class="bi bi-credit-card"></i>
+                        Thanh toán
+                    </a>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+</section>

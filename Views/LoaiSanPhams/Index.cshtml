@@ -1,0 +1,131 @@
+@model IEnumerable<WebCafePoly.Models.LoaiSanPham>
+
+@{
+    ViewData["Title"] = "Quản lý loại sản phẩm";
+}
+
+<div class="category-admin-page">
+
+    <!-- HEADER -->
+    <div class="category-page-header">
+
+        <div>
+            <div class="page-breadcrumb">
+                <span>Quản trị</span>
+                <span>/</span>
+                <strong>Loại sản phẩm</strong>
+            </div>
+
+            <h1>Quản lý loại sản phẩm</h1>
+
+            <p>
+                Quản lý các nhóm sản phẩm đang được sử dụng trong quán.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-add-category">
+            <span>＋</span>
+            Thêm loại sản phẩm
+        </a>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+    <div class="category-summary">
+
+        <div class="category-summary-icon">
+            ☕
+        </div>
+
+        <div>
+            <span>Tổng số loại</span>
+            <strong>@Model.Count()</strong>
+        </div>
+
+    </div>
+
+
+    <!-- CATEGORY GRID -->
+    <div class="category-grid">
+
+        @foreach (var item in Model)
+        {
+            <div class="category-card">
+
+                <div class="category-card-top">
+
+                    <div class="category-icon">
+                        ☕
+                    </div>
+
+                    <div class="category-code">
+                        @item.MaLoai
+                    </div>
+
+                </div>
+
+
+                <div class="category-card-content">
+
+                    <h3>
+                        @item.TenLoai
+                    </h3>
+
+                    @if (!string.IsNullOrWhiteSpace(item.GhiChu))
+                    {
+                        <p>
+                            @item.GhiChu
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="category-empty">
+                            Chưa có ghi chú
+                        </p>
+                    }
+
+                </div>
+
+
+                <div class="category-product-count">
+
+                    <span>
+                        Sản phẩm
+                    </span>
+
+                    <strong>
+                        @(item.SanPhams?.Count ?? 0)
+                    </strong>
+
+                </div>
+
+
+                <div class="category-card-actions">
+
+                    <a asp-action="Details"
+                       asp-route-maloai="@item.MaLoai"
+                       class="category-action category-view">
+                        Xem
+                    </a>
+
+                    <a asp-action="Edit"
+                       asp-route-maloai="@item.MaLoai"
+                       class="category-action category-edit">
+                        Sửa
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-maloai="@item.MaLoai"
+                       class="category-action category-delete">
+                        Xóa
+                    </a>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,203 @@
+@model IEnumerable<WebCafePoly.Models.NhanVien>
+
+@{
+    ViewData["Title"] = "Quản lý nhân viên";
+}
+
+<div class="employee-admin-page">
+
+    <!-- HEADER -->
+    <div class="employee-page-header">
+
+        <div>
+            <div class="page-breadcrumb">
+                <span>Quản trị</span>
+                <span>/</span>
+                <strong>Nhân viên</strong>
+            </div>
+
+            <h1>Quản lý nhân viên</h1>
+
+            <p>
+                Quản lý tài khoản và thông tin nhân viên của WebCafePoly.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-add-employee">
+            <span>＋</span>
+            Thêm nhân viên
+        </a>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+    <div class="employee-summary">
+
+        <div class="employee-summary-icon">
+            ♟
+        </div>
+
+        <div>
+            <span>Tổng số nhân viên</span>
+            <strong>@Model.Count()</strong>
+        </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+    <div class="employee-table-card">
+
+        <div class="employee-table-header">
+
+            <div>
+                <h3>Danh sách nhân viên</h3>
+                <p>Thông tin tài khoản nhân viên trong hệ thống</p>
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table employee-table">
+
+                <thead>
+                    <tr>
+                        <th>Nhân viên</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        var avatarLetter = string.IsNullOrWhiteSpace(item.HoTen)
+                            ? "?"
+                            : item.HoTen.Trim().Substring(0, 1).ToUpper();
+
+                        <tr>
+
+                            <!-- EMPLOYEE -->
+                            <td>
+                                <div class="employee-name-cell">
+
+                                    <div class="employee-avatar">
+                                        @avatarLetter
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            @item.HoTen
+                                        </strong>
+
+                                        <small>
+                                            @item.MaNhanVien
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </td>
+
+
+                            <!-- EMAIL -->
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(item.Email))
+                                {
+                                    <span class="employee-email">
+                                        @item.Email
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="employee-empty">
+                                        Chưa cập nhật
+                                    </span>
+                                }
+                            </td>
+
+
+                            <!-- ROLE -->
+                            <td>
+
+                                @if (item.VaiTro == true)
+                                {
+                                    <span class="employee-role role-admin">
+                                        Quản trị viên
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="employee-role role-staff">
+                                        Nhân viên
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- STATUS -->
+                            <td>
+
+                                @if (item.TrangThai == true)
+                                {
+                                    <span class="employee-status status-active">
+                                        <span></span>
+                                        Đang hoạt động
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="employee-status status-inactive">
+                                        <span></span>
+                                        Đã khóa
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+                            <td>
+
+                                <div class="employee-actions">
+
+                                    <a asp-action="Details"
+                                       asp-route-manhanvien="@item.MaNhanVien"
+                                       class="employee-action action-view">
+                                        Xem
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-manhanvien="@item.MaNhanVien"
+                                       class="employee-action action-edit">
+                                        Sửa
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-manhanvien="@item.MaNhanVien"
+                                       class="employee-action action-delete">
+                                        Xóa
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - WebCafePoly Admin</title>
+
+    <!-- CoreUI -->
+    <link rel="stylesheet" href="~/coreui/vendors/simplebar/css/simplebar.css" />
+    <link rel="stylesheet" href="~/coreui/css/vendors/simplebar.css" />
+    <link rel="stylesheet" href="~/coreui/css/style.css" />
+
+    <!-- WebCafePoly -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+<div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
+
+    <div class="sidebar-header border-bottom">
+        <div class="sidebar-brand">
+            <span style="font-size: 20px;">☕</span>
+            <span>WebCafePoly</span>
+        </div>
+    </div>
+
+    <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
+
+        <li class="nav-title">QUẢN TRỊ</li>
+
+        <li class="nav-item">
+            <a class="nav-link active"
+               asp-controller="Home"
+               asp-action="Index">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M256 32 32 224v256h144V336h160v144h144V224L256 32z" />
+                    </svg>
+                </span>
+                Dashboard
+            </a>
+        </li>
+
+
+        <li class="nav-title">QUẢN LÝ</li>
+
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="#">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M64 96h384v320H64zM96 128v256h320V128z" />
+                    </svg>
+                </span>
+                Sản phẩm
+            </a>
+
+            <ul class="nav-group-items">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-controller="SanPhams"
+                       asp-action="Index">
+                        <span class="nav-icon">
+                            <span class="nav-icon-bullet"></span>
+                        </span>
+                        Danh sách sản phẩm
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-controller="LoaiSanPhams"
+                       asp-action="Index">
+                        <span class="nav-icon">
+                            <span class="nav-icon-bullet"></span>
+                        </span>
+                        Loại sản phẩm
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="KhachHangs"
+               asp-action="Index">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M256 256a96 96 0 1 0 0-192 96 96 0 0 0 0 192zm0 32c-106 0-192 86-192 192h384c0-106-86-192-192-192z" />
+                    </svg>
+                </span>
+                Khách hàng
+            </a>
+        </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link"
+               asp-controller="NhanViens"
+               asp-action="Index">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M256 256a96 96 0 1 0 0-192 96 96 0 0 0 0 192zm0 32c-106 0-192 86-192 192h384c0-106-86-192-192-192z" />
+                    </svg>
+                </span>
+                Nhân viên
+            </a>
+        </li>
+
+
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="#">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 512 512">
+                        <path fill="currentColor"
+                              d="M64 64h384v384H64zM112 112v288h288V112z" />
+                    </svg>
+                </span>
+                Bán hàng
+            </a>
+
+            <ul class="nav-group-items">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-controller="PhieuBanHangs"
+                       asp-action="Index">
+                        <span class="nav-icon">
+                            <span class="nav-icon-bullet"></span>
+                        </span>
+                        Phiếu bán
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       asp-controller="ChiTietPhieus"
+                       asp-action="Index">
+                        <span class="nav-icon">
+                            <span class="nav-icon-bullet"></span>
+                        </span>
+                        Chi tiết phiếu
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+
+    <div class="sidebar-footer border-top d-none d-md-flex">
+        <button class="sidebar-toggler"
+                type="button"
+                data-coreui-toggle="unfoldable">
+        </button>
+    </div>
+
+</div>
+
+
+        <!-- MENU -->
+        <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
+
+            <li class="nav-title">
+                QUẢN TRỊ
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    <span class="nav-icon">⌂</span>
+                    Dashboard
+                </a>
+            </li>
+
+
+            <li class="nav-title">
+                QUẢN LÝ
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-controller="SanPhams"
+                   asp-action="Index">
+                    <span class="nav-icon">☕</span>
+                    Sản phẩm
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-controller="LoaiSanPhams"
+                   asp-action="Index">
+                    <span class="nav-icon">▦</span>
+                    Loại sản phẩm
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-controller="KhachHangs"
+                   asp-action="Index">
+                    <span class="nav-icon">♙</span>
+                    Khách hàng
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-controller="NhanViens"
+                   asp-action="Index">
+                    <span class="nav-icon">♟</span>
+                    Nhân viên
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-controller="PhieuBanHangs"
+                   asp-action="Index">
+                    <span class="nav-icon">▤</span>
+                    Phiếu bán
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link"
+                   asp-controller="ChiTietPhieus"
+                   asp-action="Index">
+                    <span class="nav-icon">☷</span>
+                    Chi tiết phiếu
+                </a>
+            </li>
+
+        </ul>
+
+
+        <!-- SIDEBAR FOOTER -->
+        <div class="sidebar-footer border-top d-none d-md-flex">
+            <button class="sidebar-toggler"
+                    type="button"
+                    data-coreui-toggle="unfoldable">
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- MAIN WRAPPER -->
+    <div class="wrapper d-flex flex-column min-vh-100">
+
+        <!-- HEADER -->
+        <header class="header header-sticky p-0 mb-4">
+
+            <div class="container-fluid border-bottom px-4">
+
+                <!-- MOBILE SIDEBAR BUTTON -->
+                <button class="header-toggler"
+                        type="button"
+                        onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()">
+
+                    <span style="font-size: 24px;">☰</span>
+
+                </button>
+
+
+                <!-- RIGHT HEADER -->
+                <ul class="header-nav ms-auto">
+
+                    <li class="nav-item py-1">
+                        <div class="vr h-100 mx-2"></div>
+                    </li>
+
+
+                    <!-- ACCOUNT -->
+                    @if (Context.Session.GetString("HoTen") != null)
+                    {
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link py-0"
+                               href="#"
+                               data-coreui-toggle="dropdown"
+                               role="button">
+
+                                <span style="font-size: 24px;">👤</span>
+
+                                <span class="ms-2">
+                                    @Context.Session.GetString("HoTen")
+                                </span>
+
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end">
+
+                                <div class="dropdown-header">
+                                    Quản trị viên / Nhân viên
+                                </div>
+
+                                <a class="dropdown-item"
+                                   asp-controller="Home"
+                                   asp-action="Index">
+                                    Trang quản trị
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+
+                                <a class="dropdown-item text-danger"
+                                   asp-controller="DangNhap"
+                                   asp-action="DangXuat">
+                                    Đăng xuất
+                                </a>
+
+                            </div>
+
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <div class="body flex-grow-1">
+
+            <div class="container-lg px-4">
+
+                @RenderBody()
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <footer class="footer px-4">
+
+            <div>
+                <strong>WebCafePoly</strong>
+            </div>
+
+            <div class="ms-auto">
+                Admin Panel
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <!-- CoreUI -->
+    <script src="~/coreui/vendors/%40coreui/coreui/js/coreui.bundle.min.js"></script>
+    <script src="~/coreui/vendors/simplebar/js/simplebar.min.js"></script>
+
+    <!-- CoreUI config -->
+    <script src="~/coreui/js/config.js"></script>
+    <script src="~/coreui/js/color-modes.js"></script>
+    <script src="~/coreui/js/main.js"></script>
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+﻿@{
+Layout = "_LayoutAdmin";
+ViewData["Title"] = "Trang quản trị";
+}
+
+<div class="admin-dashboard">
+
+```
+<!-- HEADER -->
+<div class="dashboard-header">
+    <div>
+        <h1>Trang quản trị</h1>
+        <p>Quản lý và theo dõi hoạt động của WebCafePoly</p>
+    </div>
+
+    <div class="dashboard-date">
+        <span>☕</span>
+        WebCafePoly
+    </div>
+</div>
+
+
+<!-- STATISTICS -->
+<div class="row g-4 mb-4">
+
+    <!-- SẢN PHẨM -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-card">
+            <div class="dashboard-card-icon product-icon">
+                ☕
+            </div>
+
+            <div class="dashboard-card-content">
+                <span>Sản phẩm</span>
+                <strong>@ViewBag.SoSanPham</strong>
+            </div>
+
+            <a asp-controller="SanPhams"
+               asp-action="Index"
+               class="dashboard-card-link">
+                Quản lý →
+            </a>
+        </div>
+    </div>
+
+
+    <!-- KHÁCH HÀNG -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-card">
+            <div class="dashboard-card-icon customer-icon">
+                ♙
+            </div>
+
+            <div class="dashboard-card-content">
+                <span>Khách hàng</span>
+                <strong>@ViewBag.SoKhachHang</strong>
+            </div>
+
+            <a asp-controller="KhachHangs"
+               asp-action="Index"
+               class="dashboard-card-link">
+                Quản lý →
+            </a>
+        </div>
+    </div>
+
+
+    <!-- NHÂN VIÊN -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-card">
+            <div class="dashboard-card-icon employee-icon">
+                ♟
+            </div>
+
+            <div class="dashboard-card-content">
+                <span>Nhân viên</span>
+                <strong>@ViewBag.SoNhanVien</strong>
+            </div>
+
+            <a asp-controller="NhanViens"
+               asp-action="Index"
+               class="dashboard-card-link">
+                Quản lý →
+            </a>
+        </div>
+    </div>
+
+
+    <!-- PHIẾU BÁN -->
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="dashboard-card">
+            <div class="dashboard-card-icon invoice-icon">
+                ▤
+            </div>
+
+            <div class="dashboard-card-content">
+                <span>Phiếu bán</span>
+                <strong>@ViewBag.SoPhieuBan</strong>
+            </div>
+
+            <a asp-controller="PhieuBanHangs"
+               asp-action="Index"
+               class="dashboard-card-link">
+                Quản lý →
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- QUICK ACTIONS -->
+<div class="dashboard-section">
+
+    <div class="section-heading">
+        <div>
+            <h3>Thao tác nhanh</h3>
+            <p>Truy cập nhanh các chức năng quản trị</p>
+        </div>
+    </div>
+
+    <div class="row g-3">
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <a asp-controller="SanPhams"
+               asp-action="Create"
+               class="quick-action">
+                <span class="quick-action-icon">＋</span>
+                <span>
+                    <strong>Thêm sản phẩm</strong>
+                    <small>Tạo sản phẩm mới</small>
+                </span>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <a asp-controller="LoaiSanPhams"
+               asp-action="Create"
+               class="quick-action">
+                <span class="quick-action-icon">＋</span>
+                <span>
+                    <strong>Thêm loại sản phẩm</strong>
+                    <small>Tạo loại mới</small>
+                </span>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <a asp-controller="KhachHangs"
+               asp-action="Create"
+               class="quick-action">
+                <span class="quick-action-icon">＋</span>
+                <span>
+                    <strong>Thêm khách hàng</strong>
+                    <small>Tạo khách hàng mới</small>
+                </span>
+            </a>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-3">
+            <a asp-controller="NhanViens"
+               asp-action="Create"
+               class="quick-action">
+                <span class="quick-action-icon">＋</span>
+                <span>
+                    <strong>Thêm nhân viên</strong>
+                    <small>Tạo nhân viên mới</small>
+                </span>
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- INFORMATION -->
+<div class="dashboard-info">
+
+    <div class="dashboard-info-icon">
+        ☕
+    </div>
+
+    <div>
+        <h4>WebCafePoly Admin</h4>
+        <p>
+            Hệ thống quản lý quán cafe — quản lý sản phẩm,
+            khách hàng, nhân viên và phiếu bán hàng.
+        </p>
+    </div>
+
+</div>
+```
+
+</div>

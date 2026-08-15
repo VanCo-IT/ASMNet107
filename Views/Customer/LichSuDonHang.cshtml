@@ -1,0 +1,95 @@
+﻿@model IEnumerable<WebCafePoly.Models.PhieuBanHang>
+
+@{
+    Layout = "_CustomerLayout";
+    ViewData["Title"] = "Lịch sử đơn hàng";
+}
+
+<section class="history-page">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h1 class="menu-title">Lịch sử đơn hàng</h1>
+            <p class="menu-subtitle">Theo dõi những đơn hàng bạn đã đặt</p>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-cart">
+                <i class="bi bi-receipt"></i>
+                <h3>Chưa có đơn hàng</h3>
+                <p>Bạn chưa thực hiện đơn hàng nào.</p>
+
+                <a asp-controller="Guest"
+                   asp-action="Index"
+                   class="btn btn-order">
+                    Xem thực đơn
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="history-card">
+
+                <div class="table-responsive">
+                    <table class="table history-table align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>Mã phiếu</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Chi tiết</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong>@item.MaPhieu</strong>
+                                    </td>
+
+                                    <td>
+                                        @item.NgayTao
+                                    </td>
+
+                                    <td>
+                                        @if (item.TrangThai)
+                                        {
+                                            <span class="order-status paid">
+                                                <i class="bi bi-check-circle"></i>
+                                                Đã thanh toán
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="order-status unpaid">
+                                                <i class="bi bi-clock"></i>
+                                                Chưa thanh toán
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        <a asp-controller="Customer"
+                                           asp-action="ChiTietHoaDon"
+                                           asp-route-id="@item.MaPhieu"
+                                           class="btn btn-detail">
+                                            <i class="bi bi-eye"></i>
+                                            Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</section>

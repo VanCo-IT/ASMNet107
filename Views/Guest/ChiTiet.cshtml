@@ -1,0 +1,40 @@
+﻿@model WebCafePoly.Models.SanPham
+
+@{
+    ViewData["Title"] = "Chi tiết món ăn";
+}
+
+<h2>Chi tiết món ăn</h2>
+
+<div class="card p-3" style="max-width:700px;">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="~/images/products/@Model.HinhAnh"
+                 class="img-fluid rounded"
+                 alt="@Model.TenSanPham" />
+        </div>
+
+        <div class="col-md-8">
+            <h3>@Model.TenSanPham</h3>
+
+            <p>
+                <strong>Loại:</strong>
+                @Model.MaLoaiNavigation.TenLoai
+            </p>
+
+            <p>
+                <strong>Đơn giá:</strong>
+                @String.Format("{0:N0} VNĐ", Model.DonGia)
+            </p>
+
+            <p>
+                <strong>Trạng thái:</strong>
+                @(Model.TrangThai ? "Đang bán" : "Ngừng bán")
+            </p>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Quay lại
+            </a>
+        </div>
+    </div>
+</div>

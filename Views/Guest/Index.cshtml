@@ -1,0 +1,127 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model IEnumerable<WebCafePoly.Models.SanPham>
+
+@{
+    Layout = "_CustomerLayout";
+    ViewData["Title"] = "Thực đơn";
+}
+
+<section class="customer-menu">
+    <div class="container py-5">
+
+        <div class="text-center mb-5">
+            <h1 class="menu-title">Thực đơn WebCafePoly</h1>
+            <p class="menu-subtitle">Khám phá những món ngon tại quán</p>
+        </div>
+
+        <form asp-controller="Guest" asp-action="Index" method="get" class="menu-filter mb-5">
+            <div class="row g-3">
+
+                <div class="col-md-3">
+                    <input type="text"
+                           name="keyword"
+                           class="form-control"
+                           placeholder="Tên món"
+                           value="@ViewBag.Keyword" />
+                </div>
+
+                <div class="col-md-3">
+                    <select name="maLoai"
+                            class="form-select"
+                            asp-items="@(new SelectList(ViewBag.LoaiSanPham, "MaLoai", "TenLoai", ViewBag.MaLoai))">
+                        <option value="">-- Tất cả loại --</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <input type="number"
+                           name="giaTu"
+                           class="form-control"
+                           placeholder="Giá từ"
+                           value="@ViewBag.GiaTu" />
+                </div>
+
+                <div class="col-md-2">
+                    <input type="number"
+                           name="giaDen"
+                           class="form-control"
+                           placeholder="Giá đến"
+                           value="@ViewBag.GiaDen" />
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-cafe w-100">
+                        <i class="bi bi-search"></i>
+                        Tìm kiếm
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+        <div class="row g-4">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4 col-xl-3">
+
+                    <div class="product-card">
+
+                        <div class="product-image">
+                            <img src="~/images/products/@item.HinhAnh"
+                                 alt="@item.TenSanPham" />
+                        </div>
+
+                        <div class="product-info">
+
+                            <span class="product-category">
+                                @item.MaLoaiNavigation.TenLoai
+                            </span>
+
+                            <h3>@item.TenSanPham</h3>
+
+                            <div class="product-bottom">
+
+                                <strong>
+                                    @String.Format("{0:N0} VNĐ", item.DonGia)
+                                </strong>
+
+                                @if (item.TrangThai)
+                                {
+                                    <span class="status-selling">Đang bán</span>
+                                }
+                                else
+                                {
+                                    <span class="status-stop">Ngừng bán</span>
+                                }
+
+                            </div>
+
+                            <div class="product-actions">
+
+                                <a asp-action="ChiTiet"
+                                   asp-route-id="@item.MaSanPham"
+                                   class="btn btn-detail">
+                                    Xem chi tiết
+                                </a>
+
+                                <a asp-controller="Customer"
+                                   asp-action="ThemVaoGio"
+                                   asp-route-id="@item.MaSanPham"
+                                   class="btn btn-order">
+                                    Đặt món
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+</section>

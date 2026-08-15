@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - WebCafePoly</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebCafePoly.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- ADMIN HEADER -->
+    <header class="admin-header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid px-4">
+
+                <!-- LOGO -->
+                <a class="navbar-brand admin-logo"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    <span class="logo-icon">☕</span>
+                    <span>WebCafePoly</span>
+                </a>
+
+                <!-- MOBILE BUTTON -->
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#adminNavbar"
+                        aria-controls="adminNavbar"
+                        aria-expanded="false"
+                        aria-label="Mở menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="adminNavbar">
+
+                    <!-- MENU -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                <span>⌂</span>
+                                Trang chủ
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="SanPhams"
+                               asp-action="Index">
+                                <span>☕</span>
+                                Sản phẩm
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="LoaiSanPhams"
+                               asp-action="Index">
+                                <span>▦</span>
+                                Loại sản phẩm
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="KhachHangs"
+                               asp-action="Index">
+                                <span>♙</span>
+                                Khách hàng
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="NhanViens"
+                               asp-action="Index">
+                                <span>♟</span>
+                                Nhân viên
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="PhieuBanHangs"
+                               asp-action="Index">
+                                <span>▤</span>
+                                Phiếu bán
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="ChiTietPhieus"
+                               asp-action="Index">
+                                <span>☷</span>
+                                Chi tiết phiếu
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <!-- ACCOUNT -->
+                    <ul class="navbar-nav">
+
+                        @if (Context.Session.GetString("HoTen") != null)
+                        {
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link account-button dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+
+                                    <span class="account-avatar">👤</span>
+
+                                    <span>
+                                        @Context.Session.GetString("HoTen")
+                                    </span>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+
+                                    <li>
+                                        <h6 class="dropdown-header">
+                                            Quản trị viên / Nhân viên
+                                        </h6>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Home"
+                                           asp-action="Index">
+                                            Trang quản trị
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item logout-item"
+                                           asp-controller="DangNhap"
+                                           asp-action="DangXuat">
+                                            Đăng xuất
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        }
+                        else if (Context.Session.GetString("HoTenKhachHang") != null)
+                        {
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link account-button dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+
+                                    <span class="account-avatar">👤</span>
+
+                                    <span>
+                                        @Context.Session.GetString("HoTenKhachHang")
+                                    </span>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+
+                                    <li>
+                                        <h6 class="dropdown-header">
+                                            Tài khoản khách hàng
+                                        </h6>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Customer"
+                                           asp-action="HoSoKhachHang">
+                                            Hồ sơ
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Customer"
+                                           asp-action="GioHang">
+                                            Giỏ hàng
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="Customer"
+                                           asp-action="LichSuDonHang">
+                                            Lịch sử đơn hàng
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item logout-item"
+                                           asp-controller="GuestAccount"
+                                           asp-action="DangXuat">
+                                            Đăng xuất
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+
+                                <a class="nav-link account-button dropdown-toggle"
+                                   href="#"
+                                   role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+
+                                    <span class="account-avatar">👤</span>
+                                    Tài khoản
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+
+                                    <li>
+                                        <h6 class="dropdown-header">
+                                            Khách hàng
+                                        </h6>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="GuestAccount"
+                                           asp-action="DangKy">
+                                            Đăng ký khách hàng
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="GuestAccount"
+                                           asp-action="DangNhap">
+                                            Đăng nhập khách hàng
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <hr class="dropdown-divider" />
+                                    </li>
+
+                                    <li>
+                                        <h6 class="dropdown-header">
+                                            Nhân viên
+                                        </h6>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-controller="DangNhap"
+                                           asp-action="Login">
+                                            Đăng nhập nhân viên
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="admin-main">
+
+        <div class="container-fluid px-4 py-4">
+
+            @RenderBody()
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="admin-footer">
+        <div class="container-fluid px-4">
+
+            <div class="footer-content">
+
+                <span>
+                    © 2026 WebCafePoly
+                </span>
+
+                <span>
+                    Hệ thống quản lý quán cafe
+                </span>
+
+            </div>
+
+        </div>
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

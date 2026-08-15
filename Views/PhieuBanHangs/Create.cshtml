@@ -1,0 +1,62 @@
+@model WebCafePoly.Models.PhieuBanHang
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>PhieuBanHang</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="MaPhieu" class="control-label"></label>
+                <input asp-for="MaPhieu" class="form-control" />
+                <span asp-validation-for="MaPhieu" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaKhachHang" class="control-label"></label>
+                <input asp-for="MaKhachHang" class="form-control" />
+                <span asp-validation-for="MaKhachHang" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaThe" class="control-label"></label>
+                <input asp-for="MaThe" class="form-control" />
+                <span asp-validation-for="MaThe" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MaNhanVien" class="control-label"></label>
+                <input asp-for="MaNhanVien" class="form-control" />
+                <span asp-validation-for="MaNhanVien" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NgayTao" class="control-label"></label>
+                <input asp-for="NgayTao" class="form-control" />
+                <span asp-validation-for="NgayTao" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TrangThai" class="control-label"></label>
+                <input asp-for="TrangThai" class="form-check-input" />
+                <span asp-validation-for="TrangThai" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-2">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

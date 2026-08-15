@@ -1,0 +1,163 @@
+@model IEnumerable<WebCafePoly.Models.ChiTietPhieu>
+
+@{
+    ViewData["Title"] = "Chi tiết phiếu";
+}
+
+<div class="detail-invoice-page">
+
+    <div class="detail-invoice-header">
+        <div>
+            <h1>Chi tiết phiếu</h1>
+            <p>Quản lý các sản phẩm trong từng phiếu bán hàng</p>
+        </div>
+
+        <a asp-action="Create" class="btn-add-detail">
+            <span>＋</span>
+            Thêm chi tiết
+        </a>
+    </div>
+
+    <div class="detail-invoice-summary">
+
+        <div class="detail-summary-item">
+            <div class="detail-summary-icon">
+                #
+            </div>
+            <div>
+                <span>Tổng chi tiết</span>
+                <strong>@Model.Count()</strong>
+            </div>
+        </div>
+
+        <div class="detail-summary-item">
+            <div class="detail-summary-icon product">
+                ☕
+            </div>
+            <div>
+                <span>Tổng sản phẩm</span>
+                <strong>@Model.Sum(x => x.SoLuong)</strong>
+            </div>
+        </div>
+
+        <div class="detail-summary-item">
+            <div class="detail-summary-icon money">
+                $
+            </div>
+            <div>
+                <span>Tổng tiền</span>
+                <strong>@Model.Sum(x => x.SoLuong * x.DonGia).ToString("N0")</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="detail-invoice-card">
+
+        <div class="detail-invoice-card-header">
+            <h3>Danh sách chi tiết phiếu</h3>
+            <p>Thông tin sản phẩm và số lượng trong các phiếu bán hàng</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table detail-invoice-table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Mã phiếu</th>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="detail-id">
+                                    #@item.Id
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="detail-code">
+                                    @item.MaPhieu
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="detail-product-cell">
+
+                                    <div class="detail-product-icon">
+                                        ☕
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            @(item.MaSanPhamNavigation?.TenSanPham ?? item.MaSanPham)
+                                        </strong>
+
+                                        <small>
+                                            @item.MaSanPham
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="detail-quantity">
+                                    @item.SoLuong
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="detail-price">
+                                    @item.DonGia.ToString("N0") đ
+                                </span>
+                            </td>
+
+                            <td>
+                                <strong class="detail-total">
+                                    @((item.SoLuong * item.DonGia).ToString("N0")) đ
+                                </strong>
+                            </td>
+
+                            <td>
+                                <div class="detail-actions">
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@item.Id"
+                                       class="detail-action detail-edit">
+                                        Sửa
+                                    </a>
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.Id"
+                                       class="detail-action detail-view">
+                                        Xem
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@item.Id"
+                                       class="detail-action detail-delete">
+                                        Xóa
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>

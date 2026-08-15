@@ -1,0 +1,212 @@
+@model IEnumerable<WebCafePoly.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "Quản lý khách hàng";
+}
+
+<div class="customer-admin-page">
+
+    <!-- HEADER -->
+    <div class="customer-page-header">
+
+        <div>
+            <div class="page-breadcrumb">
+                <span>Quản trị</span>
+                <span>/</span>
+                <strong>Khách hàng</strong>
+            </div>
+
+            <h1>Quản lý khách hàng</h1>
+
+            <p>
+                Theo dõi thông tin và tài khoản khách hàng của WebCafePoly.
+            </p>
+        </div>
+
+        <a asp-action="Create" class="btn btn-add-customer">
+            <span>＋</span>
+            Thêm khách hàng
+        </a>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+    <div class="customer-summary">
+
+        <div class="customer-summary-icon">
+            ♙
+        </div>
+
+        <div>
+            <span>Tổng số khách hàng</span>
+            <strong>@Model.Count()</strong>
+        </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+    <div class="customer-table-card">
+
+        <div class="customer-table-header">
+
+            <div>
+                <h3>Danh sách khách hàng</h3>
+                <p>Thông tin tài khoản khách hàng hiện có</p>
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table customer-table">
+
+                <thead>
+                    <tr>
+                        <th>Khách hàng</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Trạng thái</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        var avatarLetter = string.IsNullOrWhiteSpace(item.HoTen)
+                            ? "?"
+                            : item.HoTen.Trim().Substring(0, 1).ToUpper();
+
+                        <tr>
+
+                            <!-- CUSTOMER -->
+                            <td>
+                                <div class="customer-name-cell">
+
+                                    <div class="customer-avatar">
+                                        @avatarLetter
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            @item.HoTen
+                                        </strong>
+
+                                        <small>
+                                            @item.MaKhachHang
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </td>
+
+
+                            <!-- EMAIL -->
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(item.Email))
+                                {
+                                    <span class="customer-email">
+                                        @item.Email
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="customer-empty">
+                                        Chưa cập nhật
+                                    </span>
+                                }
+                            </td>
+
+
+                            <!-- PHONE -->
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(item.SoDienThoai))
+                                {
+                                    <span class="customer-phone">
+                                        @item.SoDienThoai
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="customer-empty">
+                                        Chưa cập nhật
+                                    </span>
+                                }
+                            </td>
+
+
+                            <!-- ADDRESS -->
+                            <td>
+                                <span class="customer-address">
+                                    @(string.IsNullOrWhiteSpace(item.DiaChi)
+                                        ? "Chưa cập nhật"
+                                        : item.DiaChi)
+                                </span>
+                            </td>
+
+
+                            <!-- STATUS -->
+                            <td>
+
+                                @if (item.TrangThai == true)
+                                {
+                                    <span class="customer-status status-active">
+                                        <span></span>
+                                        Đang hoạt động
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="customer-status status-inactive">
+                                        <span></span>
+                                        Đã khóa
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+                            <td>
+
+                                <div class="customer-actions">
+
+                                    <a asp-action="Details"
+                                       asp-route-makhachhang="@item.MaKhachHang"
+                                       class="customer-action action-view">
+                                        Xem
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-makhachhang="@item.MaKhachHang"
+                                       class="customer-action action-edit">
+                                        Sửa
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-makhachhang="@item.MaKhachHang"
+                                       class="customer-action action-delete">
+                                        Xóa
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
