@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,19 +13,9 @@ public class SanPhamsController : AdminController
     {
         _context = context;
     }
-    // public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext context)
-    // {
-    //     if (HttpContext.Session.GetString("MaNhanVien") == null)
-    //     {
-    //         context.Result = RedirectToAction("Login", "DangNhap");
-    //     }
-
-    //     base.OnActionExecuting(context);
-    // }
-
     // GET: SANPHAMS
 
-    //Thêm chức năng timnf kkieems sản phẩm ở sản phẩm
+    
     public async Task<IActionResult> Index(string? timkiem)    
     {
         var ds =  _context.SanPhams
@@ -85,10 +74,43 @@ public class SanPhamsController : AdminController
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("MaSanPham,TenSanPham,DonGia,MaLoai,HinhAnh,TrangThai")] SanPham sanpham)
+    public async Task<IActionResult> Create([Bind("MaSanPham,TenSanPham,DonGia,MaLoai,TrangThai")] SanPham sanpham,IFormFile? imageFile)
     {
+        // Kiểm tra mã sản phẩm đã tồn tại
+        if (_context.SanPhams.Any(x => x.MaSanPham == sanpham.MaSanPham))
+        {
+            ModelState.AddModelError(
+                "MaSanPham",
+                "Mã sản phẩm này đã tồn tại. Vui lòng nhập mã khác."
+            );
+        }
+        //thêm anh vào thư mục wwwroot/images/products
         if (ModelState.IsValid)
         {
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+
+                var folderPath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images",
+                    "products");
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                var filePath = Path.Combine(folderPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+
+                sanpham.HinhAnh = fileName;
+            }
             _context.Add(sanpham);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
