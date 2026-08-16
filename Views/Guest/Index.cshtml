@@ -1,127 +1,106 @@
-﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using Microsoft.AspNetCore.Mvc.Rendering
 @model IEnumerable<WebCafePoly.Models.SanPham>
 
 @{
     Layout = "_CustomerLayout";
-    ViewData["Title"] = "Thực đơn";
+    ViewData["Title"] = "Trang chủ";
 }
 
-<section class="customer-menu">
-    <div class="container py-5">
+<section class="coffee-hero">
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-eyebrow">WEBCAFEPOLY COFFEE</span>
+            <h1>Một tách cà phê.<br />Một khoảnh khắc riêng.</h1>
+            <p>Khám phá những thức uống được chọn lọc dành cho bạn mỗi ngày.</p>
+            <a href="#menu" class="hero-btn">KHÁM PHÁ THỰC ĐƠN <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
 
-        <div class="text-center mb-5">
-            <h1 class="menu-title">Thực đơn WebCafePoly</h1>
-            <p class="menu-subtitle">Khám phá những món ngon tại quán</p>
+<section class="category-strip">
+    <div class="container">
+        <div class="category-list">
+            <a href="#menu"><i class="bi bi-cup-hot"></i><span>Cà phê</span></a>
+            <a href="#menu"><i class="bi bi-cup-straw"></i><span>Trà</span></a>
+            <a href="#menu"><i class="bi bi-stars"></i><span>Đặc biệt</span></a>
+            <a href="#menu"><i class="bi bi-cake2"></i><span>Bánh</span></a>
+        </div>
+    </div>
+</section>
+
+<section class="customer-menu" id="menu">
+    <div class="container py-5">
+        <div class="section-heading">
+            <div>
+                <span class="section-eyebrow">OUR MENU</span>
+                <h2>Được yêu thích nhất</h2>
+            </div>
+            <span class="section-line"></span>
         </div>
 
-        <form asp-controller="Guest" asp-action="Index" method="get" class="menu-filter mb-5">
-            <div class="row g-3">
-
-                <div class="col-md-3">
-                    <input type="text"
-                           name="keyword"
-                           class="form-control"
-                           placeholder="Tên món"
-                           value="@ViewBag.Keyword" />
+        <form asp-controller="Guest" asp-action="Index" method="get" class="menu-filter">
+            <div class="row g-2">
+                <div class="col-lg-4">
+                    <input type="text" name="keyword" class="form-control" placeholder="Tìm món bạn yêu thích..." value="@ViewBag.Keyword" />
                 </div>
-
-                <div class="col-md-3">
-                    <select name="maLoai"
-                            class="form-select"
-                            asp-items="@(new SelectList(ViewBag.LoaiSanPham, "MaLoai", "TenLoai", ViewBag.MaLoai))">
-                        <option value="">-- Tất cả loại --</option>
+                <div class="col-lg-3">
+                    <select name="maLoai" class="form-select" asp-items="@(new SelectList(ViewBag.LoaiSanPham, "MaLoai", "TenLoai", ViewBag.MaLoai))">
+                        <option value="">Tất cả loại</option>
                     </select>
                 </div>
-
-                <div class="col-md-2">
-                    <input type="number"
-                           name="giaTu"
-                           class="form-control"
-                           placeholder="Giá từ"
-                           value="@ViewBag.GiaTu" />
+                <div class="col-lg-2">
+                    <input type="number" name="giaTu" class="form-control" placeholder="Giá từ" value="@ViewBag.GiaTu" />
                 </div>
-
-                <div class="col-md-2">
-                    <input type="number"
-                           name="giaDen"
-                           class="form-control"
-                           placeholder="Giá đến"
-                           value="@ViewBag.GiaDen" />
+                <div class="col-lg-2">
+                    <input type="number" name="giaDen" class="form-control" placeholder="Giá đến" value="@ViewBag.GiaDen" />
                 </div>
-
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-cafe w-100">
-                        <i class="bi bi-search"></i>
-                        Tìm kiếm
-                    </button>
+                <div class="col-lg-1">
+                    <button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
                 </div>
-
             </div>
         </form>
 
-        <div class="row g-4">
-
+        <div class="row g-4 mt-2">
             @foreach (var item in Model)
             {
-                <div class="col-md-6 col-lg-4 col-xl-3">
-
+                <div class="col-sm-6 col-lg-3">
                     <div class="product-card">
-
-                        <div class="product-image">
-                            <img src="~/images/products/@item.HinhAnh"
-                                 alt="@item.TenSanPham" />
-                        </div>
-
+                        <a asp-action="ChiTiet" asp-route-id="@item.MaSanPham" class="product-image">
+                            <img src="~/images/products/@item.HinhAnh" alt="@item.TenSanPham" />
+                        </a>
                         <div class="product-info">
-
-                            <span class="product-category">
-                                @item.MaLoaiNavigation.TenLoai
-                            </span>
-
+                            <span class="product-category">@item.MaLoaiNavigation.TenLoai</span>
                             <h3>@item.TenSanPham</h3>
-
                             <div class="product-bottom">
-
-                                <strong>
-                                    @String.Format("{0:N0} VNĐ", item.DonGia)
-                                </strong>
-
+                                <strong>@String.Format("{0:N0} VNĐ", item.DonGia)</strong>
+                            </div>
+                            <div class="product-actions">
+                                <a asp-action="ChiTiet" asp-route-id="@item.MaSanPham" class="btn btn-detail">Chi tiết</a>
                                 @if (item.TrangThai)
                                 {
-                                    <span class="status-selling">Đang bán</span>
+                                    <a asp-controller="Customer" asp-action="ThemVaoGio" asp-route-id="@item.MaSanPham" class="btn btn-order">Đặt món</a>
                                 }
-                                else
-                                {
-                                    <span class="status-stop">Ngừng bán</span>
-                                }
-
                             </div>
-
-                            <div class="product-actions">
-
-                                <a asp-action="ChiTiet"
-                                   asp-route-id="@item.MaSanPham"
-                                   class="btn btn-detail">
-                                    Xem chi tiết
-                                </a>
-
-                                <a asp-controller="Customer"
-                                   asp-action="ThemVaoGio"
-                                   asp-route-id="@item.MaSanPham"
-                                   class="btn btn-order">
-                                    Đặt món
-                                </a>
-
-                            </div>
-
                         </div>
-
                     </div>
-
                 </div>
             }
-
         </div>
+    </div>
+</section>
 
+<section class="brand-story">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-image">
+                <img src="~/images/products/caphe_sua.jpg" alt="Cà phê WebCafePoly" />
+            </div>
+            <div class="story-content">
+                <span class="section-eyebrow">ABOUT US</span>
+                <h2>Cà phê cho những điều bạn yêu thích.</h2>
+                <p>WebCafePoly mang đến những thức uống quen thuộc trong một không gian hiện đại, đơn giản và gần gũi.</p>
+                <a href="#menu" class="story-btn">XEM THỰC ĐƠN</a>
+            </div>
+        </div>
     </div>
 </section>

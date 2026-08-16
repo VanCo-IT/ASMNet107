@@ -1,40 +1,33 @@
-﻿@model WebCafePoly.Models.SanPham
+@model WebCafePoly.Models.SanPham
 
 @{
-    ViewData["Title"] = "Chi tiết món ăn";
+    Layout = "_CustomerLayout";
+    ViewData["Title"] = Model.TenSanPham;
 }
 
-<h2>Chi tiết món ăn</h2>
-
-<div class="card p-3" style="max-width:700px;">
-    <div class="row">
-        <div class="col-md-4">
-            <img src="~/images/products/@Model.HinhAnh"
-                 class="img-fluid rounded"
-                 alt="@Model.TenSanPham" />
-        </div>
-
-        <div class="col-md-8">
-            <h3>@Model.TenSanPham</h3>
-
-            <p>
-                <strong>Loại:</strong>
-                @Model.MaLoaiNavigation.TenLoai
-            </p>
-
-            <p>
-                <strong>Đơn giá:</strong>
-                @String.Format("{0:N0} VNĐ", Model.DonGia)
-            </p>
-
-            <p>
-                <strong>Trạng thái:</strong>
-                @(Model.TrangThai ? "Đang bán" : "Ngừng bán")
-            </p>
-
-            <a asp-action="Index" class="btn btn-secondary">
-                Quay lại
-            </a>
+<section class="detail-page">
+    <div class="container">
+        <a asp-action="Index" class="back-link"><i class="bi bi-arrow-left"></i> Quay lại thực đơn</a>
+        <div class="detail-card">
+            <div class="detail-image">
+                <img src="~/images/products/@Model.HinhAnh" alt="@Model.TenSanPham" />
+            </div>
+            <div class="detail-info">
+                <span class="section-eyebrow">@Model.MaLoaiNavigation.TenLoai</span>
+                <h1>@Model.TenSanPham</h1>
+                <div class="detail-price">@String.Format("{0:N0} VNĐ", Model.DonGia)</div>
+                <p class="detail-description">Một lựa chọn thơm ngon được chuẩn bị dành riêng cho những phút giây thư giãn của bạn.</p>
+                @if (Model.TrangThai)
+                {
+                    <a asp-controller="Customer" asp-action="ThemVaoGio" asp-route-id="@Model.MaSanPham" class="detail-order">
+                        THÊM VÀO GIỎ <i class="bi bi-bag-plus"></i>
+                    </a>
+                }
+                else
+                {
+                    <span class="detail-stop">Món hiện đang ngừng bán</span>
+                }
+            </div>
         </div>
     </div>
-</div>
+</section>

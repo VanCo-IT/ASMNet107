@@ -2767,7 +2767,6 @@ D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\tyyw962fwd-{0}-0
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\zoap6jf0uv-{0}-0kgiv13eep-0kgiv13eep.gz
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\y9lqcmtors-{0}-tuvp3o26l1-tuvp3o26l1.gz
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\vj4xmgnlkb-{0}-9f4m0srr1s-9f4m0srr1s.gz
-D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\fvqyx1npqd-{0}-0gxiw8mst3-0gxiw8mst3.gz
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\0gcmy65k1u-{0}-61n19gt1b8-61n19gt1b8.gz
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\v3ovqh4qx1-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\b3z4oxl1ns-{0}-bqjiyaj88i-bqjiyaj88i.gz
@@ -2844,3 +2843,4 @@ D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\WebCafePoly.genruntimeconfi
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\ref\WebCafePoly.dll
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\WebCafePoly.sourcelink.json
 D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\0osy59a2xv-{0}-zdvxz2c3o5-zdvxz2c3o5.gz
+D:\VanCo\A_WebCafePoly\WebCafePoly\obj\Debug\net10.0\compressed\fvqyx1npqd-{0}-f2n4599zs3-f2n4599zs3.gz

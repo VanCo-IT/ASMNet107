@@ -1,6 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Trang khách hàng";
+@{
+    Layout = "_CustomerLayout";
+    ViewData["Title"] = "Chào mừng";
 }
-<h2>Xin chào @ViewBag.HoTen</h2>
 
-<p>Đăng nhập khách hàng thành công.</p>
+<section class="coffee-hero customer-hero">
+    <div class="container">
+        <div class="hero-content">
+            <span class="hero-eyebrow">CHÀO MỪNG BẠN TRỞ LẠI</span>
+            <h1>Xin chào,<br />@ViewBag.HoTen</h1>
+            <p>Thưởng thức món yêu thích của bạn ngay hôm nay.</p>
+            <a asp-controller="Guest" asp-action="Index" class="hero-btn">KHÁM PHÁ THỰC ĐƠN <i class="bi bi-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+<section class="customer-shortcuts">
+    <div class="container">
+        <div class="shortcut-grid">
+            <a asp-controller="Customer" asp-action="GioHang"><i class="bi bi-bag"></i><span>Giỏ hàng</span><small>Xem món đã chọn</small></a>
+            <a asp-controller="Customer" asp-action="HoSoKhachHang"><i class="bi bi-person"></i><span>Hồ sơ</span><small>Thông tin tài khoản</small></a>
+            <a asp-controller="Customer" asp-action="LichSuDonHang"><i class="bi bi-clock-history"></i><span>Đơn hàng</span><small>Lịch sử đặt món</small></a>
+        </div>
+    </div>
+</section>
