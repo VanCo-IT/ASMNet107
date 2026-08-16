@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebCafePoly")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78176277eed52da31584335e91862fad02e8f8c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d435188cc6f6ffee2609ca3de055993c548bf3c")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebCafePoly")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebCafePoly")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
