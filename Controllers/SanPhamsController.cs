@@ -265,13 +265,34 @@ public class SanPhamsController : AdminController
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(string? masanpham)
     {
-        var sanpham = await _context.SanPhams.FindAsync(masanpham);
-        if (sanpham != null)
+        var sanpham = await _context.SanPhams
+            .FirstOrDefaultAsync(x => x.MaSanPham == masanpham);
+
+        if (sanpham == null)
         {
-            _context.SanPhams.Remove(sanpham);
+            return NotFound();
         }
 
+        // Xóa ảnh sản phẩm
+        if (!string.IsNullOrEmpty(sanpham.HinhAnh))
+        {
+            var filePath = Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "wwwroot",
+                "images",
+                "products",
+                sanpham.HinhAnh);
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+        }
+
+        _context.SanPhams.Remove(sanpham);
+
         await _context.SaveChangesAsync();
+
         return RedirectToAction(nameof(Index));
     }
 
