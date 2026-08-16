@@ -1,30 +1,32 @@
 @model IEnumerable<WebCafePoly.Models.NhanVien>
 
 @{
+    Layout = "_LayoutAdmin";
     ViewData["Title"] = "Quản lý nhân viên";
 }
 
 <div class="employee-admin-page">
 
     <!-- HEADER -->
-    <div class="employee-page-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <div class="page-breadcrumb">
-                <span>Quản trị</span>
-                <span>/</span>
-                <strong>Nhân viên</strong>
+            <div class="text-body-secondary small mb-1">
+                Quản trị / <strong>Nhân viên</strong>
             </div>
 
-            <h1>Quản lý nhân viên</h1>
+            <h1 class="mb-1">
+                Quản lý nhân viên
+            </h1>
 
-            <p>
+            <p class="text-body-secondary mb-0">
                 Quản lý tài khoản và thông tin nhân viên của WebCafePoly.
             </p>
         </div>
 
-        <a asp-action="Create" class="btn btn-add-employee">
-            <span>＋</span>
+        <a asp-action="Create"
+           class="btn btn-primary">
+            <span class="me-1">＋</span>
             Thêm nhân viên
         </a>
 
@@ -32,169 +34,191 @@
 
 
     <!-- SUMMARY -->
-    <div class="employee-summary">
+    <div class="card mb-4">
 
-        <div class="employee-summary-icon">
-            ♟
-        </div>
+        <div class="card-body">
 
-        <div>
-            <span>Tổng số nhân viên</span>
-            <strong>@Model.Count()</strong>
+            <div class="d-flex align-items-center">
+
+                <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
+                    <span style="font-size: 24px;">♟</span>
+                </div>
+
+                <div>
+                    <div class="text-body-secondary small">
+                        Tổng số nhân viên
+                    </div>
+
+                    <div class="fs-4 fw-semibold">
+                        @Model.Count()
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 
     <!-- TABLE -->
-    <div class="employee-table-card">
+    <div class="card">
 
-        <div class="employee-table-header">
-
-            <div>
-                <h3>Danh sách nhân viên</h3>
-                <p>Thông tin tài khoản nhân viên trong hệ thống</p>
-            </div>
-
+        <div class="card-header">
+            <strong>Danh sách nhân viên</strong>
         </div>
 
+        <div class="card-body p-0">
 
-        <div class="table-responsive">
+            <div class="table-responsive">
 
-            <table class="table employee-table">
+                <table class="table table-hover align-middle mb-0">
 
-                <thead>
-                    <tr>
-                        <th>Nhân viên</th>
-                        <th>Email</th>
-                        <th>Vai trò</th>
-                        <th>Trạng thái</th>
-                        <th class="text-end">Thao tác</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach (var item in Model)
-                    {
-                        var avatarLetter = string.IsNullOrWhiteSpace(item.HoTen)
-                            ? "?"
-                            : item.HoTen.Trim().Substring(0, 1).ToUpper();
-
+                    <thead>
                         <tr>
-
-                            <!-- EMPLOYEE -->
-                            <td>
-                                <div class="employee-name-cell">
-
-                                    <div class="employee-avatar">
-                                        @avatarLetter
-                                    </div>
-
-                                    <div>
-                                        <strong>
-                                            @item.HoTen
-                                        </strong>
-
-                                        <small>
-                                            @item.MaNhanVien
-                                        </small>
-                                    </div>
-
-                                </div>
-                            </td>
-
-
-                            <!-- EMAIL -->
-                            <td>
-                                @if (!string.IsNullOrWhiteSpace(item.Email))
-                                {
-                                    <span class="employee-email">
-                                        @item.Email
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="employee-empty">
-                                        Chưa cập nhật
-                                    </span>
-                                }
-                            </td>
-
-
-                            <!-- ROLE -->
-                            <td>
-
-                                @if (item.VaiTro == true)
-                                {
-                                    <span class="employee-role role-admin">
-                                        Quản trị viên
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="employee-role role-staff">
-                                        Nhân viên
-                                    </span>
-                                }
-
-                            </td>
-
-
-                            <!-- STATUS -->
-                            <td>
-
-                                @if (item.TrangThai == true)
-                                {
-                                    <span class="employee-status status-active">
-                                        <span></span>
-                                        Đang hoạt động
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="employee-status status-inactive">
-                                        <span></span>
-                                        Đã khóa
-                                    </span>
-                                }
-
-                            </td>
-
-
-                            <!-- ACTIONS -->
-                            <td>
-
-                                <div class="employee-actions">
-
-                                    <a asp-action="Details"
-                                       asp-route-manhanvien="@item.MaNhanVien"
-                                       class="employee-action action-view">
-                                        Xem
-                                    </a>
-
-                                    <a asp-action="Edit"
-                                       asp-route-manhanvien="@item.MaNhanVien"
-                                       class="employee-action action-edit">
-                                        Sửa
-                                    </a>
-
-                                    <a asp-action="Delete"
-                                       asp-route-manhanvien="@item.MaNhanVien"
-                                       class="employee-action action-delete">
-                                        Xóa
-                                    </a>
-
-                                </div>
-
-                            </td>
-
+                            <th class="ps-4">Nhân viên</th>
+                            <th>Email</th>
+                            <th>Vai trò</th>
+                            <th>Trạng thái</th>
+                            <th class="text-end pe-4">Thao tác</th>
                         </tr>
-                    }
+                    </thead>
 
-                </tbody>
+                    <tbody>
 
-            </table>
+                        @foreach (var item in Model)
+                        {
+                            var avatarLetter = string.IsNullOrWhiteSpace(item.HoTen)
+                                ? "?"
+                                : item.HoTen.Trim().Substring(0, 1).ToUpper();
+
+                            <tr>
+
+                                <!-- EMPLOYEE -->
+                                <td class="ps-4">
+
+                                    <div class="d-flex align-items-center">
+
+                                        <div class="bg-primary text-white rounded-circle
+                                                    d-flex align-items-center justify-content-center
+                                                    me-3"
+                                             style="width: 40px; height: 40px;">
+
+                                            <strong>
+                                                @avatarLetter
+                                            </strong>
+
+                                        </div>
+
+                                        <div>
+
+                                            <div class="fw-semibold">
+                                                @item.HoTen
+                                            </div>
+
+                                            <small class="text-body-secondary">
+                                                @item.MaNhanVien
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- EMAIL -->
+                                <td>
+
+                                    @if (!string.IsNullOrWhiteSpace(item.Email))
+                                    {
+                                        <span>
+                                            @item.Email
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-body-secondary">
+                                            Chưa cập nhật
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- ROLE -->
+                                <td>
+
+                                    @if (item.VaiTro == true)
+                                    {
+                                        <span class="badge bg-primary">
+                                            Quản trị viên
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            Nhân viên
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- STATUS -->
+                                <td>
+
+                                    @if (item.TrangThai == true)
+                                    {
+                                        <span class="badge bg-success">
+                                            Đang hoạt động
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">
+                                            Đã khóa
+                                        </span>
+                                    }
+
+                                </td>
+
+
+                                <!-- ACTIONS -->
+                                <td class="text-end pe-4">
+
+                                    <div class="btn-group" role="group">
+
+                                        <a asp-action="Details"
+                                           asp-route-manhanvien="@item.MaNhanVien"
+                                           class="btn btn-sm btn-outline-info">
+                                            Xem
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-manhanvien="@item.MaNhanVien"
+                                           class="btn btn-sm btn-outline-primary">
+                                            Sửa
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-manhanvien="@item.MaNhanVien"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Xóa
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
