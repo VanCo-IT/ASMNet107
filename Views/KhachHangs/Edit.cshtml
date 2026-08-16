@@ -1,60 +1,254 @@
 @model WebCafePoly.Models.KhachHang
 
 @{
-    ViewData["Title"] = "Edit";
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Chỉnh sửa khách hàng";
 }
 
-<h1>Edit</h1>
+<div class="customer-admin-page">
 
-<h4>KhachHang</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="MaKhachHang" />
-            <div class="form-group">
-                <label asp-for="HoTen" class="control-label"></label>
-                <input asp-for="HoTen" class="form-control" />
-                <span asp-validation-for="HoTen" class="text-danger"></span>
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <div class="text-body-secondary small mb-1">
+                Quản trị / Khách hàng / <strong>Chỉnh sửa</strong>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SoDienThoai" class="control-label"></label>
-                <input asp-for="SoDienThoai" class="form-control" />
-                <span asp-validation-for="SoDienThoai" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MatKhau" class="control-label"></label>
-                <input asp-for="MatKhau" class="form-control" />
-                <span asp-validation-for="MatKhau" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiaChi" class="control-label"></label>
-                <input asp-for="DiaChi" class="form-control" />
-                <span asp-validation-for="DiaChi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-check-input" />
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
-            </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+            <h1 class="mb-1">
+                Chỉnh sửa khách hàng
+            </h1>
+
+            <p class="text-body-secondary mb-0">
+                Cập nhật thông tin tài khoản khách hàng.
+            </p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+            ← Quay lại
+        </a>
+
     </div>
+
+
+    <!-- FORM -->
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Thông tin khách hàng</strong>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="alert alert-danger"
+                     role="alert"></div>
+
+                <input type="hidden" asp-for="MaKhachHang" />
+
+                <div class="row">
+
+                    <!-- MÃ KHÁCH HÀNG -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">
+                            Mã khách hàng
+                        </label>
+
+                        <input value="@Model.MaKhachHang"
+                               class="form-control"
+                               disabled />
+
+                    </div>
+
+
+                    <!-- HỌ TÊN -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="HoTen"
+                               class="form-label">
+                            Họ và tên
+                        </label>
+
+                        <input asp-for="HoTen"
+                               class="form-control"
+                               placeholder="Nhập họ và tên" />
+
+                        <span asp-validation-for="HoTen"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Email"
+                               class="form-label">
+                            Email
+                        </label>
+
+                        <input asp-for="Email"
+                               type="email"
+                               class="form-control"
+                               placeholder="example@email.com" />
+
+                        <span asp-validation-for="Email"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+
+                    <!-- SỐ ĐIỆN THOẠI -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="SoDienThoai"
+                               class="form-label">
+                            Số điện thoại
+                        </label>
+
+                        <input asp-for="SoDienThoai"
+                               class="form-control"
+                               placeholder="Nhập số điện thoại" />
+
+                        <span asp-validation-for="SoDienThoai"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+
+                    <!-- MẬT KHẨU -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="MatKhau" class="form-label">
+                            Mật khẩu
+                        </label>
+
+                        <div class="input-group">
+
+                            <input asp-for="MatKhau"
+                                type="password"
+                                class="form-control"
+                                id="matKhauInput"
+                                value="@Model.MatKhau" />
+
+                            <button type="button"
+                                    class="btn btn-outline-secondary"
+                                    id="toggleMatKhau">
+                                Hiện
+                            </button>
+
+                        </div>
+
+                        <span asp-validation-for="MatKhau"
+                            class="text-danger small">
+                        </span>
+
+                        <div class="form-text">
+                            Để nguyên nếu không muốn thay đổi mật khẩu.
+                        </div>
+
+                    </div>
+
+
+                    <!-- ĐỊA CHỈ -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="DiaChi"
+                               class="form-label">
+                            Địa chỉ
+                        </label>
+
+                        <input asp-for="DiaChi"
+                               class="form-control"
+                               placeholder="Nhập địa chỉ" />
+
+                        <span asp-validation-for="DiaChi"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+
+                    <!-- TRẠNG THÁI -->
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="TrangThai"
+                               class="form-label">
+                            Trạng thái
+                        </label>
+
+                        <select asp-for="TrangThai"
+                                class="form-select">
+
+                            <option value="true">
+                                Đang hoạt động
+                            </option>
+
+                            <option value="false">
+                                Đã khóa
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="TrangThai"
+                              class="text-danger small">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTON -->
+                <div class="d-flex justify-content-end gap-2 mt-3">
+
+                    <a asp-action="Index"
+                       class="btn btn-outline-secondary">
+                        Hủy
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Lưu thay đổi
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<script>
+    document.getElementById("toggleMatKhau").addEventListener("click", function () {
+
+        const input = document.getElementById("matKhauInput");
+
+        if (input.type === "password") {
+            input.type = "text";
+            this.textContent = "Ẩn";
+        } else {
+            input.type = "password";
+            this.textContent = "Hiện";
+        }
+
+    });
+</script>
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
