@@ -1,42 +1,125 @@
 @model WebCafePoly.Models.LoaiSanPham
 
 @{
-    ViewData["Title"] = "Delete";
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Xóa loại sản phẩm";
 }
 
-<h1>Delete</h1>
+<div class="mb-4">
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>WebCafePoly.Models.LoaiSanPham</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenLoai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenLoai)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SanPhams)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPhams)
-        </dd>
-    </dl>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="MaLoai" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="text-body-secondary small mb-1">
+        Quản trị / Loại sản phẩm / <strong>Xóa</strong>
+    </div>
+
+    <h1 class="mb-1">
+        Xóa loại sản phẩm
+    </h1>
+
+    <p class="text-body-secondary mb-0">
+        Kiểm tra thông tin trước khi thực hiện xóa.
+    </p>
+
+</div>
+
+
+<div class="card border-danger">
+
+    <div class="card-header text-danger">
+        <strong>Xác nhận xóa</strong>
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="alert alert-warning">
+            Bạn có chắc chắn muốn xóa loại sản phẩm này không?
+            Thao tác này có thể ảnh hưởng đến các sản phẩm đang thuộc loại này.
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- MÃ LOẠI -->
+            <div class="col-md-6">
+
+                <div class="text-body-secondary small mb-1">
+                    Mã loại
+                </div>
+
+                <div>
+                    <span class="badge bg-primary">
+                        @Model.MaLoai
+                    </span>
+                </div>
+
+            </div>
+
+
+            <!-- TÊN LOẠI -->
+            <div class="col-md-6">
+
+                <div class="text-body-secondary small mb-1">
+                    Tên loại sản phẩm
+                </div>
+
+                <div class="fs-5 fw-semibold">
+                    @Model.TenLoai
+                </div>
+
+            </div>
+
+
+            <!-- GHI CHÚ -->
+            <div class="col-12">
+
+                <div class="text-body-secondary small mb-1">
+                    Ghi chú
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.GhiChu))
+                {
+                    <div class="border rounded p-3">
+                        @Model.GhiChu
+                    </div>
+                }
+                else
+                {
+                    <div class="border rounded p-3 text-body-secondary">
+                        Chưa có ghi chú.
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+    <div class="card-footer">
+
+        <form asp-action="Delete">
+
+            <input type="hidden"
+                   asp-for="MaLoai" />
+
+            <div class="d-flex gap-2">
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    Xác nhận xóa
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Hủy
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
