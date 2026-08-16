@@ -26,7 +26,7 @@ public class LoaiSanPhamsController : Controller
     // GET: LOAISANPHAMS
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.LoaiSanPhams.ToListAsync());
+        return View(await _context.LoaiSanPhams.Include(x => x.SanPhams).ToListAsync());
     }
 
     // GET: LOAISANPHAMS/Details/5

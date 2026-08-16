@@ -1,130 +1,179 @@
 @model IEnumerable<WebCafePoly.Models.LoaiSanPham>
 
 @{
+    Layout = "_LayoutAdmin";
     ViewData["Title"] = "Quản lý loại sản phẩm";
 }
 
 <div class="category-admin-page">
 
     <!-- HEADER -->
-    <div class="category-page-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-            <div class="page-breadcrumb">
-                <span>Quản trị</span>
-                <span>/</span>
-                <strong>Loại sản phẩm</strong>
+            <div class="text-body-secondary small mb-1">
+                Quản trị / <strong>Loại sản phẩm</strong>
             </div>
 
-            <h1>Quản lý loại sản phẩm</h1>
+            <h1 class="mb-1">
+                Quản lý loại sản phẩm
+            </h1>
 
-            <p>
+            <p class="text-body-secondary mb-0">
                 Quản lý các nhóm sản phẩm đang được sử dụng trong quán.
             </p>
         </div>
 
-        <a asp-action="Create" class="btn btn-add-category">
-            <span>＋</span>
-            Thêm loại sản phẩm
-        </a>
+        <div>
+            <a asp-action="Create"
+               class="btn btn-primary">
+                <span class="me-1">＋</span>
+                Thêm loại sản phẩm
+            </a>
+        </div>
 
     </div>
 
 
     <!-- SUMMARY -->
-    <div class="category-summary">
+    <div class="card mb-4">
 
-        <div class="category-summary-icon">
-            ☕
-        </div>
+        <div class="card-body">
 
-        <div>
-            <span>Tổng số loại</span>
-            <strong>@Model.Count()</strong>
+            <div class="d-flex align-items-center">
+
+                <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
+                    <span style="font-size: 24px;">☕</span>
+                </div>
+
+                <div>
+                    <div class="text-body-secondary small">
+                        Tổng số loại sản phẩm
+                    </div>
+
+                    <div class="fs-4 fw-semibold">
+                        @Model.Count()
+                    </div>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
 
-    <!-- CATEGORY GRID -->
-    <div class="category-grid">
+    <!-- TABLE -->
+    <div class="card">
 
-        @foreach (var item in Model)
-        {
-            <div class="category-card">
+        <div class="card-header">
+            <strong>Danh sách loại sản phẩm</strong>
+        </div>
 
-                <div class="category-card-top">
+        <div class="card-body p-0">
 
-                    <div class="category-icon">
-                        ☕
-                    </div>
+            <div class="table-responsive">
 
-                    <div class="category-code">
-                        @item.MaLoai
-                    </div>
+                <table class="table table-hover align-middle mb-0">
 
-                </div>
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Mã loại</th>
+                            <th>Tên loại</th>
+                            <th>Ghi chú</th>
+                            <th class="text-center">Sản phẩm</th>
+                            <th class="text-end pe-4">Thao tác</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
 
-                <div class="category-card-content">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
 
-                    <h3>
-                        @item.TenLoai
-                    </h3>
-
-                    @if (!string.IsNullOrWhiteSpace(item.GhiChu))
-                    {
-                        <p>
-                            @item.GhiChu
-                        </p>
-                    }
-                    else
-                    {
-                        <p class="category-empty">
-                            Chưa có ghi chú
-                        </p>
-                    }
-
-                </div>
+                                <!-- MÃ LOẠI -->
+                                <td class="ps-4">
+                                    <span class="badge bg-primary">
+                                        @item.MaLoai
+                                    </span>
+                                </td>
 
 
-                <div class="category-product-count">
-
-                    <span>
-                        Sản phẩm
-                    </span>
-
-                    <strong>
-                        @(item.SanPhams?.Count ?? 0)
-                    </strong>
-
-                </div>
+                                <!-- TÊN LOẠI -->
+                                <td>
+                                    <strong>
+                                        @item.TenLoai
+                                    </strong>
+                                </td>
 
 
-                <div class="category-card-actions">
+                                <!-- GHI CHÚ -->
+                                <td>
 
-                    <a asp-action="Details"
-                       asp-route-maloai="@item.MaLoai"
-                       class="category-action category-view">
-                        Xem
-                    </a>
+                                    @if (!string.IsNullOrWhiteSpace(item.GhiChu))
+                                    {
+                                        <span>
+                                            @item.GhiChu
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-body-secondary">
+                                            Chưa có ghi chú
+                                        </span>
+                                    }
 
-                    <a asp-action="Edit"
-                       asp-route-maloai="@item.MaLoai"
-                       class="category-action category-edit">
-                        Sửa
-                    </a>
+                                </td>
 
-                    <a asp-action="Delete"
-                       asp-route-maloai="@item.MaLoai"
-                       class="category-action category-delete">
-                        Xóa
-                    </a>
 
-                </div>
+                                <!-- SỐ SẢN PHẨM -->
+                                <td class="text-center">
+
+                                    <span class="badge bg-info">
+                                        @(item.SanPhams?.Count ?? 0)
+                                    </span>
+
+                                </td>
+
+
+                                <!-- ACTION -->
+                                <td class="text-end pe-4">
+
+                                    <div class="btn-group" role="group">
+
+                                        <a asp-action="Details"
+                                           asp-route-maloai="@item.MaLoai"
+                                           class="btn btn-sm btn-outline-info">
+                                            Xem
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-maloai="@item.MaLoai"
+                                           class="btn btn-sm btn-outline-primary">
+                                            Sửa
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-maloai="@item.MaLoai"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Xóa
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
 
             </div>
-        }
+
+        </div>
 
     </div>
 
