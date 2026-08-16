@@ -1,71 +1,181 @@
 @model WebCafePoly.Models.PhieuBanHang
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Chi tiết phiếu bán hàng";
 }
 
-<h1>Details</h1>
+<div class="invoice-admin-page">
 
-<div>
-    <h4>PhieuBanHang</h4>
-    <hr />
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaPhieu)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaPhieu)
-        </dd>
-    </dl>
+        <div>
+            <div class="text-body-secondary small mb-1">
+                Quản trị / Phiếu bán hàng / <strong>Chi tiết</strong>
+            </div>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaKhachHang)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaKhachHang)
-        </dd>
-    </dl>
+            <h1 class="mb-1">
+                Chi tiết phiếu bán hàng
+            </h1>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaThe)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaThe)
-        </dd>
-    </dl>
+            <p class="text-body-secondary mb-0">
+                Xem thông tin chi tiết của phiếu bán hàng.
+            </p>
+        </div>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaNhanVien)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaNhanVien)
-        </dd>
-    </dl>
+        <div class="d-flex gap-2">
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NgayTao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NgayTao)
-        </dd>
-    </dl>
+            <a asp-action="Edit"
+               asp-route-maphieu="@Model.MaPhieu"
+               class="btn btn-primary">
+                Sửa
+            </a>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
-</div>
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                ← Quay lại
+            </a>
 
-<div>
-    <a asp-action="Edit" asp-route-maphieu="@Model?.MaPhieu">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        </div>
+
+    </div>
+
+
+    <!-- THÔNG TIN PHIẾU -->
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Thông tin phiếu bán hàng</strong>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <!-- MÃ PHIẾU -->
+                <div class="col-md-6">
+
+                    <div class="text-body-secondary small mb-1">
+                        Mã phiếu
+                    </div>
+
+                    <div class="fs-5 fw-semibold">
+                        @Model.MaPhieu
+                    </div>
+
+                </div>
+
+
+                <!-- KHÁCH HÀNG -->
+                <div class="col-md-6">
+
+                    <div class="text-body-secondary small mb-1">
+                        Mã khách hàng
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.MaKhachHang))
+                    {
+                        <span class="badge bg-light text-dark border fs-6">
+                            @Model.MaKhachHang
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-body-secondary">
+                            Không có
+                        </span>
+                    }
+
+                </div>
+
+
+                <!-- MÃ THẺ -->
+                <div class="col-md-6">
+
+                    <div class="text-body-secondary small mb-1">
+                        Mã thẻ
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.MaThe))
+                    {
+                        <span class="badge bg-light text-dark border fs-6">
+                            @Model.MaThe
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-body-secondary">
+                            Không có
+                        </span>
+                    }
+
+                </div>
+
+
+                <!-- NHÂN VIÊN -->
+                <div class="col-md-6">
+
+                    <div class="text-body-secondary small mb-1">
+                        Mã nhân viên
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.MaNhanVien))
+                    {
+                        <span class="badge bg-light text-dark border fs-6">
+                            @Model.MaNhanVien
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-body-secondary">
+                            Không có
+                        </span>
+                    }
+
+                </div>
+
+
+                <!-- NGÀY TẠO -->
+                <div class="col-md-6">
+
+                    <div class="text-body-secondary small mb-1">
+                        Thời gian tạo
+                    </div>
+
+                    <div class="fw-semibold">
+                        @Model.NgayTao.ToString("dd/MM/yyyy HH:mm")
+                    </div>
+
+                </div>
+
+
+                <!-- TRẠNG THÁI -->
+                <div class="col-md-6">
+
+                    <div class="text-body-secondary small mb-1">
+                        Trạng thái
+                    </div>
+
+                    @if (Model.TrangThai)
+                    {
+                        <span class="badge bg-success fs-6">
+                            Hoàn thành
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark fs-6">
+                            Chưa hoàn thành
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
