@@ -1,73 +1,258 @@
 @model WebCafePoly.Models.NhanVien
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Chi tiết nhân viên";
 }
 
-<h1>Details</h1>
+<div class="employee-admin-page">
 
-<div>
-    <h4>NhanVien</h4>
-    <hr />
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MaNhanVien)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MaNhanVien)
-        </dd>
-    </dl>
+        <div>
+            <div class="text-body-secondary small mb-1">
+                Quản trị / Nhân viên / <strong>Chi tiết</strong>
+            </div>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-    </dl>
+            <h1 class="mb-1">
+                Chi tiết nhân viên
+            </h1>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-    </dl>
+            <p class="text-body-secondary mb-0">
+                Xem thông tin tài khoản nhân viên.
+            </p>
+        </div>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
-    </dl>
+        <div class="d-flex gap-2">
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.VaiTro)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.VaiTro)
-        </dd>
-    </dl>
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                ← Quay lại
+            </a>
 
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-    </dl>
+            <a asp-action="Edit"
+               asp-route-manhanvien="@Model.MaNhanVien"
+               class="btn btn-primary">
+                Sửa thông tin
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPLOYEE INFO -->
+    <div class="card">
+
+        <div class="card-header">
+            <strong>Thông tin nhân viên</strong>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-4">
+
+                <!-- AVATAR -->
+                <div class="col-md-3">
+
+                    <div class="text-center">
+
+                        <div class="bg-primary text-white rounded-circle
+                                    d-flex align-items-center justify-content-center
+                                    mx-auto mb-3"
+                             style="width: 90px; height: 90px; font-size: 32px;">
+
+                            @{
+                                var avatarLetter = string.IsNullOrWhiteSpace(Model.HoTen)
+                                    ? "?"
+                                    : Model.HoTen.Trim().Substring(0, 1).ToUpper();
+                            }
+
+                            <strong>
+                                @avatarLetter
+                            </strong>
+
+                        </div>
+
+                        <h5 class="mb-1">
+                            @Model.HoTen
+                        </h5>
+
+                        <div class="text-body-secondary">
+                            @Model.MaNhanVien
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INFORMATION -->
+                <div class="col-md-9">
+
+                    <div class="row g-3">
+
+                        <!-- MÃ NHÂN VIÊN -->
+                        <div class="col-md-6">
+
+                            <div class="text-body-secondary small">
+                                Mã nhân viên
+                            </div>
+
+                            <div class="fw-semibold">
+                                @Model.MaNhanVien
+                            </div>
+
+                        </div>
+
+
+                        <!-- HỌ TÊN -->
+                        <div class="col-md-6">
+
+                            <div class="text-body-secondary small">
+                                Họ và tên
+                            </div>
+
+                            <div class="fw-semibold">
+
+                                @(string.IsNullOrWhiteSpace(Model.HoTen)
+                                    ? "Chưa cập nhật"
+                                    : Model.HoTen)
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+                        <div class="col-md-6">
+
+                            <div class="text-body-secondary small">
+                                Email
+                            </div>
+
+                            <div class="fw-semibold">
+
+                                @if (!string.IsNullOrWhiteSpace(Model.Email))
+                                {
+                                    @Model.Email
+                                }
+                                else
+                                {
+                                    <span class="text-body-secondary">
+                                        Chưa cập nhật
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- VAI TRÒ -->
+                        <div class="col-md-6">
+
+                            <div class="text-body-secondary small mb-1">
+                                Vai trò
+                            </div>
+
+                            @if (Model.VaiTro == true)
+                            {
+                                <span class="badge bg-primary">
+                                    Quản trị viên
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    Nhân viên
+                                </span>
+                            }
+
+                        </div>
+
+
+                        <!-- TRẠNG THÁI -->
+                        <div class="col-md-6">
+
+                            <div class="text-body-secondary small mb-1">
+                                Trạng thái
+                            </div>
+
+                            @if (Model.TrangThai == true)
+                            {
+                                <span class="badge bg-success">
+                                    Đang hoạt động
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    Đã khóa
+                                </span>
+                            }
+
+                        </div>
+
+
+                        <!-- MẬT KHẨU -->
+                        <div class="col-md-6">
+
+                            <div class="text-body-secondary small">
+                                Mật khẩu
+                            </div>
+
+                            <div class="input-group mt-1"
+                                 style="max-width: 300px;">
+
+                                <input type="password"
+                                       class="form-control"
+                                       id="matKhauInput"
+                                       value="@Model.MatKhau"
+                                       readonly />
+
+                                <button type="button"
+                                        class="btn btn-outline-secondary"
+                                        id="toggleMatKhau">
+                                    Hiện
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 
-<div>
-    <a asp-action="Edit" asp-route-manhanvien="@Model?.MaNhanVien">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<script>
+
+    document.getElementById("toggleMatKhau").addEventListener("click", function () {
+
+        const input = document.getElementById("matKhauInput");
+
+        if (input.type === "password") {
+
+            input.type = "text";
+            this.textContent = "Ẩn";
+
+        } else {
+
+            input.type = "password";
+            this.textContent = "Hiện";
+
+        }
+
+    });
+
+</script>
