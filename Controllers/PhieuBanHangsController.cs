@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebCafePoly.Models;
@@ -56,18 +55,43 @@ public class PhieuBanHangsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("MaPhieu,MaKhachHang,MaThe,MaNhanVien,NgayTao,TrangThai")] PhieuBanHang phieubanhang)
+    public async Task<IActionResult> Create(
+        [Bind("MaKhachHang,MaThe,MaNhanVien,NgayTao,TrangThai")] PhieuBanHang phieubanhang)
     {
-        if (await _context.PhieuBanHangs.AnyAsync(x => x.MaPhieu == phieubanhang.MaPhieu))
+        // Lấy phiếu cuối cùng
+        var phieuCuoi = await _context.PhieuBanHangs
+            .OrderByDescending(x => x.MaPhieu)
+            .FirstOrDefaultAsync();
+
+        // Mặc định mã đầu tiên
+        string maMoi = "PBH001";
+
+        if (phieuCuoi != null)
         {
-            ModelState.AddModelError("MaPhieu", "Mã phiếu này đã tồn tại trên hệ thống.");
+            int so = 0;
+
+            int.TryParse(
+                phieuCuoi.MaPhieu.Substring(3),
+                out so
+            );
+
+            maMoi = "PBH" + (so + 1).ToString("D3");
         }
+
+        // Gán mã tự động
+        phieubanhang.MaPhieu = maMoi;
+
+        // Xóa validation MaPhieu vì hệ thống tự sinh
+        ModelState.Remove("MaPhieu");
+
         if (ModelState.IsValid)
         {
             _context.Add(phieubanhang);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
+
         return View(phieubanhang);
     }
 
