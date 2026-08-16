@@ -6,7 +6,7 @@ using WebCafePoly.Models;
 
 
 
-public class SanPhamsController : Controller
+public class SanPhamsController : AdminController
 {
     private readonly PolyCafeContext _context;
 
@@ -14,15 +14,15 @@ public class SanPhamsController : Controller
     {
         _context = context;
     }
-    public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext context)
-    {
-        if (HttpContext.Session.GetString("MaNhanVien") == null)
-        {
-            context.Result = RedirectToAction("Login", "DangNhap");
-        }
+    // public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext context)
+    // {
+    //     if (HttpContext.Session.GetString("MaNhanVien") == null)
+    //     {
+    //         context.Result = RedirectToAction("Login", "DangNhap");
+    //     }
 
-        base.OnActionExecuting(context);
-    }
+    //     base.OnActionExecuting(context);
+    // }
 
     // GET: SANPHAMS
 
