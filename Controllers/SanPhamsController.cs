@@ -150,15 +150,71 @@ public class SanPhamsController : AdminController
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(string? masanpham, [Bind("MaSanPham,TenSanPham,DonGia,MaLoai,HinhAnh,TrangThai")] SanPham sanpham)
+    public async Task<IActionResult> Edit(
+        string? masanpham,
+        [Bind("MaSanPham,TenSanPham,DonGia,MaLoai,TrangThai")] SanPham sanpham,
+        IFormFile? imageFile)
     {
         if (masanpham != sanpham.MaSanPham)
         {
             return NotFound();
         }
 
+        // Lấy sản phẩm cũ
+        var sanPhamCu = await _context.SanPhams
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.MaSanPham == masanpham);
+
+        if (sanPhamCu == null)
+        {
+            return NotFound();
+        }
+
         if (ModelState.IsValid)
         {
+            // Giữ ảnh cũ
+            sanpham.HinhAnh = sanPhamCu.HinhAnh;
+
+            // Nếu chọn ảnh mới
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString()
+                            + Path.GetExtension(imageFile.FileName);
+
+                var folderPath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "images",
+                    "products");
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                var filePath = Path.Combine(folderPath, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+
+                // Xóa ảnh cũ
+                if (!string.IsNullOrEmpty(sanPhamCu.HinhAnh))
+                {
+                    var oldFilePath = Path.Combine(
+                        folderPath,
+                        sanPhamCu.HinhAnh);
+
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+
+                sanpham.HinhAnh = fileName;
+            }
+
             try
             {
                 _context.Update(sanpham);
@@ -170,17 +226,19 @@ public class SanPhamsController : AdminController
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
+
             return RedirectToAction(nameof(Index));
         }
-        ViewBag.MaLoai = new SelectList(_context.LoaiSanPhams,
-                                "MaLoai",
-                                "TenLoai",
-                                sanpham.MaLoai);
+
+        ViewBag.MaLoai = new SelectList(
+            _context.LoaiSanPhams,
+            "MaLoai",
+            "TenLoai",
+            sanpham.MaLoai);
+
         return View(sanpham);
     }
 
