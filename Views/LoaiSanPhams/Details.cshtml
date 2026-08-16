@@ -1,33 +1,119 @@
 @model WebCafePoly.Models.LoaiSanPham
 
 @{
-    ViewData["Title"] = "Details";
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Chi tiết loại sản phẩm";
 }
 
-<h1>Details</h1>
+<div class="mb-4">
 
-<div>
-    <h4>LoaiSanPham</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenLoai)
-        </dt>
+    <div class="text-body-secondary small mb-1">
+        Quản trị / Loại sản phẩm / <strong>Chi tiết</strong>
+    </div>
 
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenLoai)
-        </dd>
+    <h1 class="mb-1">
+        Chi tiết loại sản phẩm
+    </h1>
 
-    
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-    </dl>
+    <p class="text-body-secondary mb-0">
+        Thông tin chi tiết của loại sản phẩm.
+    </p>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-maloai="@Model?.MaLoai">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+
+<div class="card">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        <strong>
+            Thông tin loại sản phẩm
+        </strong>
+
+        <span class="badge bg-primary">
+            @Model.MaLoai
+        </span>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="row g-4">
+
+            <!-- TÊN LOẠI -->
+            <div class="col-md-6">
+
+                <div class="text-body-secondary small mb-1">
+                    Tên loại sản phẩm
+                </div>
+
+                <div class="fs-5 fw-semibold">
+                    @Model.TenLoai
+                </div>
+
+            </div>
+
+
+            <!-- MÃ LOẠI -->
+            <div class="col-md-6">
+
+                <div class="text-body-secondary small mb-1">
+                    Mã loại
+                </div>
+
+                <div class="fs-5">
+                    @Model.MaLoai
+                </div>
+
+            </div>
+
+
+            <!-- GHI CHÚ -->
+            <div class="col-12">
+
+                <div class="text-body-secondary small mb-1">
+                    Ghi chú
+                </div>
+
+                @if (!string.IsNullOrWhiteSpace(Model.GhiChu))
+                {
+                    <div class="border rounded p-3">
+                        @Model.GhiChu
+                    </div>
+                }
+                else
+                {
+                    <div class="border rounded p-3 text-body-secondary">
+                        Chưa có ghi chú.
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+    <div class="card-footer">
+
+        <div class="d-flex gap-2">
+
+            <a asp-action="Edit"
+               asp-route-maloai="@Model?.MaLoai"
+               class="btn btn-primary">
+                Sửa
+            </a>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Quay lại
+            </a>
+
+        </div>
+
+    </div>
+
 </div>
